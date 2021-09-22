@@ -1,0 +1,22 @@
+{
+  "name": "pet_shower_api",
+  "version": "1.0.0",
+  "description": "Start Project 21/09",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaoLiraDev/Pet_Shower_API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoaoLiraDev/Pet_Shower_API/issues"
+  },
+  "homepage": "https://github.com/JoaoLiraDev/Pet_Shower_API#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
