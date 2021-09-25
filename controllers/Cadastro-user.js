@@ -17,7 +17,7 @@ exports.postCadastroUser = (req, res, next) => {
 
     mysql.getConnection((err, conn) => {
         if (err) { return res.status(500).send({ error: error }) }
-        conn.query('SELECT * FROM Users WHERE EMAIL = ?', [user.email], (error, results) => {
+        conn.query('SELECT * FROM Users WHERE CPF = ?', [user.cpf], (error, results) => {
             if (error) { return res.status(500).send({ error: error }) };
             if (results.length > 0) {
                 res.status(409).send({ mensagem: 'Usuário já cadastrado' })
@@ -65,17 +65,17 @@ exports.postCadastroUser = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        const query = 'SELECT * FROM Users WHERE EMAIL = ?';
-        conn.query(query, [req.body.email], (error, results, fields) => {
+        const query = 'SELECT * FROM Users WHERE CPF = ?';
+        conn.query(query, [req.body.CPF], (error, results, fields) => {
             conn.release();
             if (error) { return res.status(500).send({ error: error }) }
             if (results.length < 1) {
-                return res.status(401).send({ mensagem: 'Falha na autenticação - 1' })
+                return res.status(401).send({ mensagem: 'Falha na autenticação' })
             }
 
             bcrypt.compare(req.body.senha, results[0].SENHA, (err, result) => {
                 if (err) {
-                    return res.status(401).send({ mensagem: 'Falha na autenticação - 2' });
+                    return res.status(401).send({ mensagem: 'Falha na autenticação' });
                 }
                 if (result) {
                     const token = jwt.sign({

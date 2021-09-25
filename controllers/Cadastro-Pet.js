@@ -35,4 +35,30 @@ exports.postCadastroPet = (req, res, next) => {
         );
     });
 
-}
+};
+
+
+
+exports.getMeuPet = (req, res, next) => {
+    mysql.getConnection((error, conn) => {
+        conn.query(
+            'Select * from pet_user where ID_USER = ? order by ID_PET desc',
+            req.usuario.id_user,
+            (error, resultado, field) => {
+                conn.release();
+
+                if (error) {
+                    return res.status(500).send({
+                        error: error,
+                        response: null
+                    });
+                };
+
+                res.status(200).send({
+                    mensagem: "Questões do usuário!",
+                    Query_result: resultado
+                });
+            }
+        );
+    });
+};
