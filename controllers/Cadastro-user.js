@@ -65,8 +65,8 @@ exports.postCadastroUser = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        const query = 'SELECT * FROM Users WHERE CPF = ?';
-        conn.query(query, [req.body.CPF], (error, results, fields) => {
+        const query = 'SELECT * FROM Users WHERE EMAIL = ?';
+        conn.query(query, [req.body.email], (error, results, fields) => {
             conn.release();
             if (error) { return res.status(500).send({ error: error }) }
             if (results.length < 1) {

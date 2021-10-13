@@ -55,8 +55,8 @@ exports.getMeuPet = (req, res, next) => {
                 };
 
                 res.status(200).send({
-                    mensagem: "Questões do usuário!",
-                    Query_result: resultado
+                    mensagem: "Pets do usuário!",
+                    pet: resultado[0]
                 });
             }
         );

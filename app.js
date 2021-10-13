@@ -5,6 +5,7 @@ const cors = require('cors');
 const BodyParser = require('body-parser');
 const rotaUser = require('./routes/CadastroUsuarios');
 const rotaPet = require('./routes/CadastroPet');
+const rotaServ = require('./routes/CadastroServ');
 
 app.use(morgan('dev'));
 app.use(cors());
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use('/Usuarios', rotaUser);
 app.use('/Pet', rotaPet);
+app.use('/Servicos', rotaServ)
 
 app.use((req, res, next) => {
     const erro = new Error("Não encontrado")
