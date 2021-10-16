@@ -19,4 +19,6 @@ router.post('/agendamentos/:ID_PET', login.obrigatorio,controllerServ.postCadast
 
 router.delete('/delete_agendamento/:id_agendamento', login.obrigatorio, controllerServ.deleteAgendamento);
 
+router.patch('/atualiza/:id_pet', login.obrigatorio, controllerServ.updateAgendamento);
+
 module.exports = router; 

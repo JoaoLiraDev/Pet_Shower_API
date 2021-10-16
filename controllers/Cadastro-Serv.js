@@ -224,7 +224,8 @@ exports.getDadosAgendamentoUser = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         conn.query(
             `
-            select  
+            select
+            pet_user.id_pet,
             users.NOME, 
             pet_user.NOME_PET, 
             users.CPF, 
@@ -256,3 +257,36 @@ exports.getDadosAgendamentoUser = (req, res, next) => {
         );
     });
 };
+
+// update agendamentos set title = '', startDate = '', endDate = '' where ID_PET = '';
+
+
+exports.updateAgendamento = (req, res, next) => {
+    const Agendamento = {
+        title: req.body.title,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        location: req.body.location
+    };
+    mysql.getConnection((error, conn) => {
+        conn.query(`update agendamentos set startDate = ?, endDate = ? where ID_PET = ?`,
+            [Agendamento.startDate, Agendamento.endDate, req.params.id_pet],
+            (error, result, field) => {
+                conn.release();
+                if (error) {
+                    return res.status(500).send({
+                        error: error,
+                        response: null,
+                        mensagem: "Falha ao reagendar!"
+                    });
+                };
+
+                res.status(201).send({
+                    mensagem: "Agendamento atualizado com sucesso!",
+                    NovoAgendamento: Agendamento
+                });
+            }
+        );
+    });
+
+}
