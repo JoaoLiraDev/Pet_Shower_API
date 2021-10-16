@@ -7,6 +7,7 @@ exports.postCadastroPet = (req, res, next) => {
         endereco_pet: req.body.endereco_pet,
         categoria_pet: req.body.categoria_pet
     };
+   
     mysql.getConnection((error, conn) => {
         conn.query(
             'INSERT INTO pet_user(ID_USER ,NOME_PET, PORTE_PET, ENDERECO_PET, CATEGORIA_PET)VALUES(?,?,?,?,?)',

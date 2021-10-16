@@ -126,7 +126,9 @@ exports.getAgendamentosFormatado = (req, res, next) => {
 
 exports.deleteAgendamento = (req, res, next) => {
     mysql.getConnection((error, conn) => {
-        conn.query(`delete from Agendamentos where ID_AGENDAMENTO = ?`,
+        conn.query(`
+        delete pet_user, agendamentos, servicos from pet_user inner join agendamentos on pet_user.id_pet = agendamentos.id_pet
+         inner join servicos on servicos.id_pet = agendamentos.id_pet where agendamentos.id_pet = ?`,
             [req.params.id_agendamento],
             (error, result, field) => {
                 conn.release();
@@ -148,7 +150,7 @@ exports.deleteAgendamento = (req, res, next) => {
 
 
 exports.postCadastroAgendamento = (req, res, next) => {
-    console.log(req.usuario);
+    
     const Agendamento = {
         title: req.body.title,
         startDate: req.body.startDate,
@@ -161,7 +163,7 @@ exports.postCadastroAgendamento = (req, res, next) => {
             [Agendamento.title, Agendamento.startDate, Agendamento.endDate, Agendamento.location, req.usuario.id_user, req.params.ID_PET],
             (error, resultado, field) => {
                 conn.release();
-
+                console.log(resultado);
                 if (error) {
                     return res.status(500).send({
                         error: error,

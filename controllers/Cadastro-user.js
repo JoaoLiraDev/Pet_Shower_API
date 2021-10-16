@@ -25,8 +25,8 @@ exports.postCadastroUser = (req, res, next) => {
                 bcrypt.hash(user.senha, 10, (errBcrypt, hash) => {
                     if (errBcrypt) { return res.status(500).send({ error_crypt: errBcrypt }) }
                     conn.query(
-                        'INSERT INTO Users(NOME, SOBRENOME, SENHA, TELEFONE, EMAIL, CPF, ENDERECO, NUMERO, COMPLEMENTO)VALUES(?,?,?,?,?,?,?,?,?)',
-                        [user.nome, user.sobrenome, hash, user.telefone, user.email, user.cpf, user.endereco, user.numero, user.complemento],
+                        'INSERT INTO Users(NOME, SOBRENOME, SENHA, TELEFONE, EMAIL, CPF, ENDERECO, NUMERO, COMPLEMENTO, TYPE_USER)VALUES(?,?,?,?,?,?,?,?,?,?)',
+                        [user.nome, user.sobrenome, hash, user.telefone, user.email, user.cpf, user.endereco, user.numero, user.complemento, req.body.type_user],
                         (error, resultado, field) => {
                             conn.release();
 
@@ -41,6 +41,7 @@ exports.postCadastroUser = (req, res, next) => {
                                         SOBRENOME: req.body.sobrenome,
                                         SENHA: hash,
                                         EMAIL: req.body.email,
+                                        TYPE_USER: req.body.type_user,
                                         DADOS_ENDERECO: {
                                             ENDERECO: req.body.endereco,
                                             NUMERO: req.body.numero,
