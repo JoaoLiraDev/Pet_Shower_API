@@ -17,7 +17,7 @@ exports.postCadastroUser = (req, res, next) => {
 
     mysql.getConnection((err, conn) => {
         if (err) { return res.status(500).send({ error: error }) }
-        conn.query('SELECT * FROM Users WHERE CPF = ?', [user.cpf], (error, results) => {
+        conn.query('SELECT * FROM Users WHERE EMAIL = ?', [user.EMAIL], (error, results) => {
             if (error) { return res.status(500).send({ error: error }) };
             if (results.length > 0) {
                 res.status(409).send({ mensagem: 'Usuário já cadastrado' })

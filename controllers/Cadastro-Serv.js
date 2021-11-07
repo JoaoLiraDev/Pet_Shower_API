@@ -153,8 +153,8 @@ exports.postCadastroAgendamento = (req, res, next) => {
     
     const Agendamento = {
         title: req.body.title,
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
+        startDate: `${req.body.dt_agend}T${req.body.startDate}`,
+        endDate: `${req.body.dt_agend}T${req.body.endDate}`,
         location: req.body.location
     };
     mysql.getConnection((error, conn) => {
