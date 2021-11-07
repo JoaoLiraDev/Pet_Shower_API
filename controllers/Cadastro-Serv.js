@@ -159,8 +159,8 @@ exports.postCadastroAgendamento = (req, res, next) => {
     };
     mysql.getConnection((error, conn) => {
         conn.query(
-            'INSERT INTO Agendamentos(title,startDate,endDate,location, ID_USER, ID_PET)VALUES(?,?,?,?,?,?)',
-            [Agendamento.title, Agendamento.startDate, Agendamento.endDate, Agendamento.location, req.usuario.id_user, req.params.ID_PET],
+            'INSERT INTO Agendamentos(title,startDate,endDate,location, ID_USER, ID_PET)VALUES(?,?,DATE_ADD(?, INTERVAL 1 hour),?,?,?)',
+            [Agendamento.title, Agendamento.startDate, Agendamento.startDate, Agendamento.location, req.usuario.id_user, req.params.ID_PET],
             (error, resultado, field) => {
                 conn.release();
                 console.log(resultado);
